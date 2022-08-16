@@ -1,0 +1,17 @@
+notes:
+Yahtzee ->
+
+1. Menu Screen
+
+2. 3xGame Screen (Dice, Keep-Funtionality, Scoresheet, Decide what to take)
+
+3. Game Over Screen (Scoresheet)
+
+
+
+
+Tic Tac Toe ->
+
+Game Board (9 Fields)
+Game Functionality (Turn-based, X vs O)
+Computer Opponent (random?, sees 1 move wins/loses) 
