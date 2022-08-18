@@ -7,3 +7,7 @@ body {
 #dice {
     display: flex;
 }
+
+.hidden {
+    display: none;
+}
