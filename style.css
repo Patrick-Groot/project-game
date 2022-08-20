@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: darkslategrey;
 }
 
 #dice {
@@ -9,5 +8,51 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+#scoresheet {
+    border: 2px solid #FFFFFF;
+    width: 50%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#scoresheet td, #scoresheet th {
+    border: 0px solid #FFFFFF;
+    padding: 3px 4px;
+}
+#scoresheet tbody td {
+    font-size: 13px;
+}
+#scoresheet td:nth-child(even) {
+    background: #EBEBEB;
+}
+#scoresheet thead {
+    background: #FFFFFF;
+    border-bottom: 4px solid #333333;
+}
+#scoresheet thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333333;
+    text-align: center;
+    border-left: 2px solid #333333;
+}
+#scoresheet thead th:first-child {
+    border-left: none;
+}
+
+#scoresheet tfoot {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+    border-top: 4px solid #333333;
+}
+#scoresheet tfoot td {
+    font-size: 14px;
+}
+
+#scoresheet #upper-tr {
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
 }
