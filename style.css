@@ -5,6 +5,7 @@ body {
 
 #dice {
     display: flex;
+    width: 100%;
 }
 
 .hidden {
@@ -13,7 +14,7 @@ body {
 
 #scoresheet {
     border: 2px solid #FFFFFF;
-    width: 50%;
+    width: 30%;
     text-align: center;
     border-collapse: collapse;
 }
@@ -55,4 +56,13 @@ body {
 #scoresheet #upper-tr {
     border-top: 1px solid #333333;
     border-bottom: 1px solid #333333;
+}
+
+#scoresheet #bonus-row {
+    border-top: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+}
+
+img {
+    width: 100%;
 }
