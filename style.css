@@ -70,3 +70,20 @@ img {
 #restart-button {
     margin-bottom: 7%;
 }
+
+#inputSection {
+    display: flex;
+}
+
+#scoresheet {
+    margin-right: 3%;
+}
+.confirm-button {
+    margin-top: 5%;
+}
+
+#roll-button {
+    width: 10%;
+    margin-top: 1%;
+    font-size: 15px;
+}
