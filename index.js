@@ -98,9 +98,10 @@ function checkBonus() {
   else bonusField.innerHTML = 0;
 }
 
+//changed from `/Images
 function createDiceImage(num) {
   const diceImg = document.createElement("img");
-  diceImg.src = `/Images/Alea_${num}.png`;
+  diceImg.src = `Images/Alea_${num}.png`;
   return diceImg;
 }
 
