@@ -3,25 +3,15 @@ let rollCount = 1;
 let turnCount = 1;
 const rollCounter = document.getElementById("roll-counter");
 rollCounter.innerHTML = `Roll ${rollCount} / 3`;
-clearDiceArray();
 
-function clearDiceArray() {
-  for (let i = 1; i < 6; i++) {
-    const diceElement = document.getElementById(`dice${i}`);
-    dice.push({diceElement, keep: false, value: 1});
-    document.getElementById(`checkboxDice${i}`).checked = false;
-  }
-}
+clearDiceArray();
 
 let intervalId;
 let selectedField;
-
-
 const rollButton = document.getElementById("roll-button");
 rollButton.addEventListener("click", rollDice);
-
-
-
+const restartButton = document.getElementById("restart-button");
+restartButton.addEventListener("click", restart);
 const keepDiceInput = document.getElementById("keep-input");
 const keepDiceConfirm = document.getElementById("submit-keep-dice");
 const scoreInput = document.getElementById("score-input");
@@ -30,6 +20,10 @@ const scoreSheet = document.getElementById("scoresheet");
 const radioButtonsScore = document.querySelectorAll('input[name="score"]');
 const scoreTotal = document.getElementById("score-grand-total");
 const scoreTotalUpper = document.getElementById("score-total-upper");
+const endOfGameScreen = document.getElementById("end-of-game-screen");
+const diceDiv = document.getElementById("dice");
+const scoreMessage = document.getElementById("score-message");
+const allRadioButtons = document.getElementsByName("score");
 
 scoreTotal.innerHTML = 0;
 scoreTotalUpper.innerHTML = 0;
@@ -44,31 +38,59 @@ scoreConfirm.addEventListener("click", chooseField);
 
 changeDiceImageRandom();
 
+function clearDiceArray() {
+  for (let i = 1; i < 6; i++) {
+    const diceElement = document.getElementById(`dice${i}`);
+    dice.push({diceElement, keep: false, value: 1});
+    document.getElementById(`checkboxDice${i}`).checked = false;
+  }
+}
+
 function rollDice() {
-  //console.log(`rollDice ${rollCount}`);
-  console.log(`rollDice ${turnCount}`);
   intervalId = setInterval(changeDiceImageRandom,30);
   setTimeout(() => {
     clearInterval(intervalId);
-    endOfRoll()}, 1000);  
-}
-
-function endOfRoll(){
-  //console.log(`endOfRoll ${rollCount}`);
-  rollCounter.innerHTML = `Roll ${rollCount} / 3`;
-  if (rollCount < 3) keepDiceInput.classList.toggle("hidden");
-  if (rollCount === 3) scoreInput.classList.toggle("hidden");    
+    endOfRoll()}, 1000);
   rollButton.classList.toggle("hidden");
 }
 
+function endOfRoll(){
+  rollCounter.innerHTML = `Roll ${rollCount} / 3`;
+  if (rollCount < 3) keepDiceInput.classList.toggle("hidden");
+  if (rollCount === 3) scoreInput.classList.toggle("hidden");    
+  
+}
+
 function endOfGame(){
-  console.log("end of game activated");
   checkBonus();
+  endOfGameScreen.classList.toggle("hidden");
+  diceDiv.classList.toggle("hidden");
+  scoreMessage.innerHTML = `Congratulations or I'm sorry! You've reached ${scoreTotal.innerHTML} points!`
+}
+
+function restart(){
+  turnCount = 1;
+  rollCount = 1;  
+  for (let i = 0; i < allRadioButtons.length; i++) {
+    allRadioButtons[i].disabled = false;
+  }
+  const allTableInputs = document.getElementsByClassName("tableInput");
+  for (let i = 0; i < allTableInputs.length; i++) {
+    allTableInputs[i].innerHTML = "";
+  }
+  endOfGameScreen.classList.toggle("hidden");
+  rollButton.classList.toggle("hidden");
+  rollCounter.classList.toggle("hidden");
+  diceDiv.classList.toggle("hidden");
+  scoreTotal.innerHTML = "0";
+  scoreTotalUpper.innerHTML = "0";
+  rollCounter.innerHTML = `Roll ${rollCount} / 3`;
+  clearDiceArray();
 }
 
 function checkBonus() {
-  const bonusField = document.getElementById("score-bonus");  
-  if (sumUpper >= 63) {
+  const bonusField = document.getElementById("score-bonus"); 
+  if (parseInt(scoreTotalUpper.innerHTML) >= 63) {
     bonusField.innerHTML = 35;
     scoreTotal.innerHTML = parseInt(scoreTotal.innerHTML) + 35;
     scoreTotalUpper.innerHTML = parseInt(scoreTotalUpper.innerHTML) + 35;
@@ -83,7 +105,6 @@ function createDiceImage(num) {
 }
 
 function keepDice() {
-  //console.log(`keepDice Start ${rollCount}`);
   keepDiceInput.classList.toggle("hidden");
   for (let i = 0; i < checkboxDice.length; i++){
     if (checkboxDice[i].checked) {
@@ -92,19 +113,16 @@ function keepDice() {
     else dice[i].keep = false;
   }
   if (rollCount < 3) {
-    rollButton.classList.toggle("hidden")}  
-  //console.log(`keepDice End ${rollCount}`);
+    rollButton.classList.toggle("hidden")}
+  ;
 }
 
 function increaseRollCount() {
-  //console.log(`increaseRollCount Start ${rollCount}`);
   rollCount ++;
   rollCounter.innerHTML = `Roll ${rollCount} / 3`;
-  //console.log(`increaseRollCount End ${rollCount}`);
 }
 
 function chooseField() {
-  //console.log(`chooseField ${rollCount}`);
   rollCounter.classList.toggle("hidden");
   scoreInput.classList.toggle("hidden");
   for (radioButton of radioButtonsScore) {
@@ -114,10 +132,15 @@ function chooseField() {
     }
   }
   score(selectedField);
+  for (let i = 0; i < allRadioButtons.length; i++) {
+    if (!allRadioButtons[i].disabled) {
+      allRadioButtons[i].checked = true;
+      break;
+    }
+  }
 }
 
-function score(str) { 
-  //console.log(`score ${rollCount}`);
+function score(str) {
   let scoreField = document.getElementById(`score-${str}`);
   scoreField.innerHTML = evaluate(selectedField);
   scoreTotal.innerHTML = parseInt(scoreTotal.innerHTML) + evaluate(selectedField);
@@ -132,7 +155,6 @@ function newRound() {
   turnCount ++;
   console.log(`newRound (after ++) ${turnCount}`);
   if (turnCount < 14) {
-    //console.log(`newRound ${rollCount}`);  
     rollCounter.classList.toggle("hidden");
     rollButton.classList.toggle("hidden");
     clearDiceArray();
@@ -140,7 +162,6 @@ function newRound() {
     rollCounter.innerHTML = `Roll ${rollCount} / 3`;
   }
   if (turnCount >= 14) endOfGame();  
-  //console.log(`newRound ${rollCount}`);
 }
 
 function changeDiceImage(elem, num) {
@@ -149,7 +170,6 @@ function changeDiceImage(elem, num) {
 }
 
 function changeDiceImageRandom() {
-  //console.log(`changeDiceImageRandom ${rollCount}`);
   dice = dice.map((singleDice) => {
     if (singleDice.keep) return singleDice;
     let randomNum = Math.floor(Math.random() * 6 + 1);
@@ -162,7 +182,6 @@ function changeDiceImageRandom() {
 }
 
 function evaluate(str) {
-  //console.log(`evaluate ${rollCount}`);
   const diceValues = dice.map((die) => die.value);
   const diceValuesSum = diceValues.reduce((a,b) => {return a + b});
   const diceValuesSorted = diceValues.reduce((a,b) => {

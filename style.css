@@ -66,3 +66,7 @@ body {
 img {
     width: 100%;
 }
+
+#restart-button {
+    margin-bottom: 7%;
+}
