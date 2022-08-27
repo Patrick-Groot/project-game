@@ -98,7 +98,6 @@ function checkBonus() {
   else bonusField.innerHTML = 0;
 }
 
-//changed from `/Images
 function createDiceImage(num) {
   const diceImg = document.createElement("img");
   diceImg.src = `Images/Alea_${num}.png`;
@@ -154,7 +153,6 @@ function score(str) {
 
 function newRound() {
   turnCount ++;
-  console.log(`newRound (after ++) ${turnCount}`);
   if (turnCount < 14) {
     rollCounter.classList.toggle("hidden");
     rollButton.classList.toggle("hidden");

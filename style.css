@@ -5,7 +5,7 @@ body {
 
 #dice {
     display: flex;
-    width: 100%;
+    width: 90%;
 }
 
 .hidden {
@@ -14,24 +14,30 @@ body {
 
 #scoresheet {
     border: 2px solid #FFFFFF;
-    width: 30%;
+    width: 45%;
     text-align: center;
     border-collapse: collapse;
+    margin-right: 3%;
 }
+
 #scoresheet td, #scoresheet th {
     border: 0px solid #FFFFFF;
     padding: 3px 4px;
 }
+
 #scoresheet tbody td {
     font-size: 13px;
 }
+
 #scoresheet td:nth-child(even) {
     background: #EBEBEB;
 }
+
 #scoresheet thead {
     background: #FFFFFF;
     border-bottom: 4px solid #333333;
 }
+
 #scoresheet thead th {
     font-size: 15px;
     font-weight: bold;
@@ -39,6 +45,7 @@ body {
     text-align: center;
     border-left: 2px solid #333333;
 }
+
 #scoresheet thead th:first-child {
     border-left: none;
 }
@@ -49,6 +56,7 @@ body {
     color: #333333;
     border-top: 4px solid #333333;
 }
+
 #scoresheet tfoot td {
     font-size: 14px;
 }
@@ -73,11 +81,9 @@ img {
 
 #inputSection {
     display: flex;
+    width: 90%;
 }
 
-#scoresheet {
-    margin-right: 3%;
-}
 .confirm-button {
     margin-top: 5%;
 }
@@ -86,4 +92,18 @@ img {
     width: 10%;
     margin-top: 1%;
     font-size: 15px;
+}
+
+fieldset {
+    width: 45%;
+}
+
+@media (min-width: 630px) {
+    #scoresheet {
+        width: 255px;
+        margin-right: 17px;
+    }
+    fieldset {
+        width: 255px;
+    }
 }
